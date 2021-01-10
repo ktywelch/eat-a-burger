@@ -2,32 +2,32 @@
 
 
 <ul>
-  {{#each sandwhich}}
+  {{#each burger}}
   <li>
     <p>
-      {{this.id}}. {{this.sandwhich}}
+      {{this.id}}. {{this.burger}}
 
-      <button data-planid="{{this.id}}" class="moveSandwhich">Eat Sandwhich</button>
+      <button data-planid="{{this.id}}" class="moveBurger">Eat Burger</button>
     </p>
   </li>
   {{/each}}
 </ul>
 
-<h2>Add a Sandwhich</h2>
+<h2>Add a Burger</h2>
 <form id="createplan" class="button-size">
-  <textarea type="text" name="sandwhich"></textarea>
+  <textarea type="text" name="addBurger"></textarea>
   <button type="submit">Save Plan!</button>
 </form>
 
-<h2>Each Sandwhich</h2>
-<form id="modifySandwhich" class="button-size">
+<h2>Each Burger</h2>
+<form id="modifyBurger" class="button-size">
   <select name="id">
-    {{#each plans}}
-    <option value="{{this.id}}">{{this.plan}}</option>
+    {{#each burger}}
+    <option value="{{this.id}}">{{this.burger}}</option>
     {{/each}}
   </select>
   <textarea type="text" name="food" placeholder="food"></textarea>
-  <button type="submit">Update Plan!</button>
+  <button type="submit">Update Burger!</button>
 </form>
 
 <script type="text/javascript">
