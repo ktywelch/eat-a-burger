@@ -1,128 +1,39 @@
-<h1>Hambugers</h1>
+<h1>Eating Burgers</h1>
+<div class="container-fluid col-md-12 m-2"></div>
+  <div class="row">
+     <div class="col-md-6">
+         <ul>
+             {{#each burgers}}
+             {{#unless eaten}}
+             <li class="burger-li pb-2">
+                 {{name}}
+                 <button class="btn btn-primary bugerBtn" burger-id="{{id}}" type="button">Devour it!</button>
+             </li>
+             {{/unless}}
+             {{/each}}
+         </ul>
+      </div>
+
+    <div class="col-md-6">
+        <ul class="bL">
+            {{#each burgers}}
+            {{#if eaten}}
+            <li class="bList">
+                {{burger_name}}
+            </li>
+            {{/if}}
+            {{/each}}
+         </ul>
+     </div>
+  </div>
+ </div>
+
+ <h2>Add a Burger</h2>
+
+   <form id="addBurgerForm" class="m-2">
+      <textarea type="text" id="addBurger"></textarea>
+      <button class="btn btn-primary" id="addBurgerBtn" type="button">Add Burger</button>
+   </form>
+</div>
 
 
-<ul>
-  {{#each burger}}
-  <li>
-    <p>
-      {{this.id}}. {{this.burger}}
-
-      <button data-planid="{{this.id}}" class="moveBurger">Eat Burger</button>
-    </p>
-  </li>
-  {{/each}}
-</ul>
-
-<h2>Add a Burger</h2>
-<form id="createplan" class="button-size">
-  <textarea type="text" name="addBurger"></textarea>
-  <button type="submit">Save Plan!</button>
-</form>
-
-<h2>Each Burger</h2>
-<form id="modifyBurger" class="button-size">
-  <select name="id">
-    {{#each burger}}
-    <option value="{{this.id}}">{{this.burger}}</option>
-    {{/each}}
-  </select>
-  <textarea type="text" name="food" placeholder="food"></textarea>
-  <button type="submit">Update Burger!</button>
-</form>
-
-<script type="text/javascript">
-
-  // DELETE
-  // Get the button
-  const deletePlanBtns = document.querySelectorAll('.delplan')
-
-  // Set up the event listeners for each delete button
-  deletePlanBtns.forEach(button => {
-    button.addEventListener('click', (e) => {
-      const id = e.target.getAttribute('data-planid')
-      console.log("delete plan id", id)
-
-      // Send the delete request
-      fetch(`/api/plans/${id}`, {
-        method: 'DELETE',
-      }).then(() => {
-        console.log(`Deleted ID: ${id}`)
-
-        // Reload the page
-        location.reload()
-      })
-    })
-  })
-
-  // CREATE
-  const createPlanBtn = document.getElementById('createplan')
-
-  // Set up the event listener for the create button
-  createPlanBtn.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    // Grabs the value of the textarea that goes by the name, "plan"
-    const newPlan = {
-      plan: document.getElementsByName('plan')[0].value.trim()
-    }
-    console.log(newPlan);
-
-    // Send POST request to create a new plan
-    fetch("/api/plans", {
-      method: "POST",
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-
-      //make sure to serialize the JSON body
-      body: JSON.stringify(newPlan)
-    })
-      .then((response) => {
-        // Empty the form
-        document.getElementsByName('plan')[0].value = ''
-
-        // Reload the page so the user can see the new plan
-        console.log("Created a new plan!")
-        location.reload()
-      });
-  })
-
-  // UPDATE
-  const updatePlanBtn = document.getElementById('updateplan')
-
-  // Set up the event listener for the create button
-  updatePlanBtn.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    // Grabs the id of the element that goes by the name, "id"
-    const id = document.getElementsByName('id')[0].value
-    const updatedPlan = {
-      plan: document.getElementsByName('plan')[1].value
-    }
-    console.log("updatedPlan", updatedPlan)
-
-    // Send POST request to create a new plan
-    fetch(`/api/plans/${id}`, {
-      method: "PUT",
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-
-      //make sure to serialize the JSON body
-      body: JSON.stringify(updatedPlan)
-    })
-      .then((response) => {
-        // Check that the response is all good
-        // Reload the page so the user can see the new plan
-        if (response.ok) {
-          console.log(`Updated the plan with id: ${id}`)
-          location.reload()
-        } else {
-          alert('something went wrong!')
-        }
-      });
-  })
-
-</script>

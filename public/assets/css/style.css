@@ -1,0 +1,36 @@
+
+h1 {
+    font-family: Verdana;
+    color: red;
+    font-size: 50px;
+    letter-spacing: 1px;
+    text-align: center;
+}
+h2 {
+  font-family: Verdana;
+  color: red;
+  font-size: 35px;
+  letter-spacing: 1px;
+  margin: 5px;
+  }
+
+.burger-li {
+  font-family: Verdana;
+  color: palegoldenrod;
+  font-size: 20px;
+  text-align: center;
+  margin: 10px;
+ list-style-type:none;
+}
+body {    
+  background-color: darkblue;    
+  font-family: Verdana;
+}
+
+.normal {
+  font-family: Verdana;
+  color:black;
+  font-size: 20px;
+  letter-spacing: 1px;
+  text-align: center;
+}

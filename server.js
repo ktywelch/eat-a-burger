@@ -1,105 +1,28 @@
 const express = require('express');
-const exphbs = require('express-handlebars');
-const mysql = require('mysql');
-const path = require('path');
+
+const PORT = process.env.PORT || 5000;
 
 const app = express();
 
-// process.env.PORT lets the port be set by Heroku
-const PORT = process.env.PORT || 5000;
+// Serve static content for the app from the "public" directory in the application directory.
+app.use(express.static('public'));
 
-// Parse request body as JSON
+// Parse application body as JSON
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// Set Handlebars.
+const exphbs = require('express-handlebars');
+
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
-app.use(express.static(path.join(__dirname, '/')));
 app.set('view engine', 'handlebars');
 
-const connection = mysql.createConnection({
-  host: 'localhost',
-  port: 3306,
-  user: 'root',
-  password: 'password',
-  database: 'hamburger_db'
-});
+// Import routes and give the server access to them.
+const routes = require('./controllers/controller.js');
 
-connection.connect((err) => {
-  if (err) {
-    console.error(`error connecting: ${err.stack}`);
-    return;
-  }
-
-  console.log(`connected as id ${connection.threadId}`);
-});
-
-// Use Handlebars to render the main index.html page with the plans in it.
-app.get('/', (req, res) => {
-  connection.query('SELECT * FROM burgers;', (err, data) => {
-    if (err) {
-      return res.status(500).end();
-    }
-    res.render('index', { hamburger: data });
-  });
-});
-
-// Create a new sandwhiches
-app.post('/api/sanswhich', (req, res) => {
-  connection.query(
-    'INSERT INTO burgers (sandwhich) VALUES (?)',
-    [req.body.plan],
-    (err, result) => {
-      if (err) {
-        return res.status(500).end();
-      }
-
-      // Send back the ID of the new plan
-      console.log({ id: result.insertId });
-      res.json({ id: result.insertId });
-    }
-  );
-});
-
-// Update a plan
-app.put('/api/burgers/:id', (req, res) => {
-  connection.query(
-    'UPDATE sandwhiches SET sandwhich = ? WHERE id = ?',
-    [req.body.plan, req.params.id],
-    (err, result) => {
-      if (err) {
-        // If an error occurred, send a generic server failure
-        return res.status(500).end();
-      }
-      if (result.changedRows === 0) {
-        // If no rows were changed, then the ID must not exist, so 404
-        return res.status(404).end();
-      }
-      res.status(200).end();
-    }
-  );
-});
-
-// Delete a plan
-app.delete('/api/burgers/:id', (req, res) => {
-  connection.query(
-    'DELETE FROM plans WHERE id = ?',
-    [req.params.id],
-    (err, result) => {
-      if (err) {
-        // If an error occurred, send a generic server failure
-        return res.status(500).end();
-      }
-      if (result.affectedRows === 0) {
-        // If no rows were changed, then the ID must not exist, so 404
-        return res.status(404).end();
-      }
-      res.status(200).end();
-    }
-  );
-});
+app.use(routes);
 
 // Start our server so that it can begin listening to client requests.
-// Log (server-side) when our server has started
 app.listen(PORT, () =>
   console.log(`Server listening on: http://localhost:${PORT}`)
 );

@@ -1,42 +1,37 @@
 const connection = require('./connection.js');
 
 const orm = {
-  select(whatToSelect, tableInput) {
-    const queryString = 'SELECT ?? FROM ??';
-    connection.query(queryString, [whatToSelect, tableInput], (err, result) => {
+  all(tableInput, cb) {
+    const queryString = `SELECT * FROM ${tableInput}`;
+    connection.query(queryString, [tableInput], (err, result) => {
       if (err) throw err;
       console.log(result);
+      cb(result)
+
     });
   },
-  selectWhere(tableInput, colToSearch, valOfCol) {
-    const queryString = 'SELECT * FROM ?? WHERE ?? = ?';
-    console.log(queryString);
 
-    connection.query(
-      queryString,
-      [tableInput, colToSearch, valOfCol],
-      (err, result) => {
-        if (err) throw err;
-        console.log(result);
-      }
-    );
+  //orm.create('burgers', cols, vals, (res) => cb(res));
+  create(table, cols,vals, cb) {
+    const queryString = `INSERT INTO ${table} (${cols}) values ('${vals}')`;
+    connection.query(queryString, (err, result) => {
+      if (err) throw err;
+      console.log(result);
+      cb(result)
+    });
   },
-  leftJoin(whatToSelect, tableOne, tableTwo, onTableOneCol, onTableTwoCol) {
-    let queryString = 'SELECT ?? FROM ?? AS tOne';
-    queryString += ' LEFT JOIN ?? AS tTwo';
-    queryString += ' ON tOne.?? = tTwo.??';
 
-    console.log(queryString);
-
-    connection.query(
-      queryString,
-      [whatToSelect, tableOne, tableTwo, onTableOneCol, onTableTwoCol],
-      (err, result) => {
-        if (err) throw err;
-        console.log(result);
-      }
-    );
+  update(table, cols, vals, condition, cb) {
+    const queryString = `UPDATE ${table} set ${cols} = ${vals} where ${condition}`;
+    connection.query(queryString, (err, result) => {
+      if (err) throw err;
+      console.log(result);
+      cb(result)
+    });
   },
+
+
+
 };
 
 module.exports = orm;
