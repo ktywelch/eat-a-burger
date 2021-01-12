@@ -17,8 +17,7 @@ router.get('/', (req, res) => {
 });
 
 router.post('/api/burgers', (req, res) => {
-  burger.create(['name'], [req.body.name], (result) => {
-    // Send back the ID of the new quote
+  burger.create(['burger_name'], [req.body.burger_name], (result) => {
     res.json({ id: result.insertId });
   });
 });
@@ -26,9 +25,8 @@ router.post('/api/burgers', (req, res) => {
 router.put('/api/burger/:id', (req, res) => {
   const condition = `id = ${req.params.id}`;
 
-  console.log('condition', condition);
-console.log(req.body.eaten)
-  burger.update( ['eaten'], [req.body.eaten], condition,
+
+  burger.update( ['devoured'], [req.body.devoured], condition,
     (result) => {
       if (result.changedRows === 0) {
         // If no rows were changed, then the ID must not exist, so 404
@@ -37,19 +35,7 @@ console.log(req.body.eaten)
       res.status(200).end();
     }
   );
-});
-
-router.delete('/api/burgers/:id', (req, res) => {
-  const condition = `id = ${req.params.id}`;
-
-  cat.delete(condition, (result) => {
-    if (result.affectedRows === 0) {
-      // If no rows were changed, then the ID must not exist, so 404
-      return res.status(404).end();
-    }
-    res.status(200).end();
-  });
-});
+})
 
 // Export routes for server.js to use.
 module.exports = router;

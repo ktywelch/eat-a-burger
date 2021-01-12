@@ -5,7 +5,7 @@ const orm = {
     const queryString = `SELECT * FROM ${tableInput}`;
     connection.query(queryString, [tableInput], (err, result) => {
       if (err) throw err;
-      console.log(result);
+      //console.log(result);
       cb(result)
 
     });
@@ -16,7 +16,7 @@ const orm = {
     const queryString = `INSERT INTO ${table} (${cols}) values ('${vals}')`;
     connection.query(queryString, (err, result) => {
       if (err) throw err;
-      console.log(result);
+      //console.log(result);
       cb(result)
     });
   },
@@ -25,7 +25,7 @@ const orm = {
     const queryString = `UPDATE ${table} set ${cols} = ${vals} where ${condition}`;
     connection.query(queryString, (err, result) => {
       if (err) throw err;
-      console.log(result);
+      //console.log(result);
       cb(result)
     });
   },

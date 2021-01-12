@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
           const id = e.target.getAttribute('burger-id');
         
           const newlyEaten = {
-            eaten: true
+            devoured: true
           };
   
           fetch(`/api/burger/${id}`, {
@@ -49,11 +49,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
       addBurgerBtn.addEventListener('click', (e) => {
         const addBurger = document.querySelector('#addBurger');
-        console.log(addBurger.value)
+        
         e.preventDefault();
 
         const newBurger = {
-          name: addBurger.value.trim()
+          burger_name: addBurger.value.trim()
         };
      
   
@@ -71,31 +71,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
           document.querySelector('#addBurgerForm').value = '';
   
           // Reload the page so the user can see the new quote
-          console.log('Created a new cat!');
+          console.log('Created a new burger!');
           location.reload();
         });
       });
     }
   
-    // DELETE
-    const deleteCatBtns = document.querySelectorAll('.delete-cat');
-  
-    // // Set up the event listeners for each delete button
-    // deleteCatBtns.forEach((button) => {
-    //   button.addEventListener('click', (e) => {
-    //     const id = e.target.getAttribute('data-id');
-  
-    //     // Send the delete request
-    //     fetch(`/api/cats/${id}`, {
-    //       method: 'DELETE',
-    //     }).then((res) => {
-    //       console.log(res);
-    //       console.log(`Deleted burger: ${id}`);
-  
-    //       // Reload the page
-    //       location.reload();
-    //     });
-    //   });
-    // });
+    
   });
   

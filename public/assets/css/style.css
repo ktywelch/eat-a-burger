@@ -22,6 +22,17 @@ h2 {
   margin: 10px;
  list-style-type:none;
 }
+
+
+.burger-li2 {
+  font-family: Verdana;
+  color: palevioletred;
+  font-size: 20px;
+  text-align: center;
+  margin: 20px;
+ list-style-type:none;
+}
+
 body {    
   background-color: darkblue;    
   font-family: Verdana;
@@ -33,4 +44,9 @@ body {
   font-size: 20px;
   letter-spacing: 1px;
   text-align: center;
+}
+
+#addBurgerBtn{
+  display: block;
+  align: center; 
 }
