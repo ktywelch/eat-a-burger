@@ -1,5 +1,4 @@
-<h1>Eating Burgers</h1>
-<div class="container-fluid col-md-12 m-2"></div>
+
   <div class="row">
      <div class="col-md-6">
          <ul>
@@ -15,11 +14,11 @@
       </div>
 
     <div class="col-md-6">
-        <ul class="bL">
+        <ul>
             {{#each burgers}}
             {{#if eaten}}
-            <li class="bList">
-                {{burger_name}}
+            <li class="burger-li pb-2">
+                {{name}}
             </li>
             {{/if}}
             {{/each}}
@@ -28,12 +27,12 @@
   </div>
  </div>
 
- <h2>Add a Burger</h2>
+ <h2 class="mr-4"> Add a Burger</h2>
 
    <form id="addBurgerForm" class="m-2">
       <textarea type="text" id="addBurger"></textarea>
       <button class="btn btn-primary" id="addBurgerBtn" type="button">Add Burger</button>
    </form>
-</div>
+
 
 
