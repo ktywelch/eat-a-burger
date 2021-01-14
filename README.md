@@ -22,7 +22,8 @@ The application is deployed on [Heroku at burger-devour-kw.herokuapp.com/](https
 
 ##Database:
 
-Datamodel utilizes a single tables that has 2 columns:
+
+ utilizes a single tables that has 2 columns:
 burger_name - text field to contain the name of the burger
 devoured - boolean that indicates if the burger is devoured
 
