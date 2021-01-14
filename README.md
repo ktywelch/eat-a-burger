@@ -1,7 +1,6 @@
 # EatABurger
 
-The EmployeeTracker application allows a user to create, read, update and delete Employees, Department and Roles from a company database. This will allow users to interact with the data in a more meaningful way.
-
+The Eat'n Burger is an application that utilizes database to allow users to add burgers to a log to track burgers they would like to try to the list and then as then as they devour the burgers they move to eaten. 
 
 
 [Eat-A-Burger application can be found on github repository ](https://github.com/ktywelch/eat-a-burger)
